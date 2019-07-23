@@ -151,8 +151,10 @@ def xuLyKiTu(imgXam, listKyTu):
         pt2=((kyTu.x+kyTu.width),(kyTu.y+kyTu.height))
         imgKyTu=imgXam[pt1[1]:pt2[1],pt1[0]:pt2[0]]
         imgKyTuResized=cv2.resize(imgKyTu, (12,28))
-        ret, im = cv2.threshold(imgKyTuResized, 150, 255, cv2.THRESH_BINARY)
+        #ret, im = cv2.threshold(imgKyTuResized, 150, 255, cv2.THRESH_BINARY)
+        im = cv2.adaptiveThreshold(imgKyTuResized, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,5,3)
         im=cv2.bitwise_not(im)
+        #cv2.imshow(str(i),im)
         anhKyTu.append(im)
     kyTus=duDoanKyTu(anhKyTu)
     return kyTus
